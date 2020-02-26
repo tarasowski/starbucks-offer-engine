@@ -10,7 +10,17 @@ and informational offers. Not all Starbucks customers receive the same offer.
 ## Problem Statement
 
 The problem of the project is to find a solution that will suggest which
-customers should get which type of offers. 
+customers should get which type of offers. By finding the right offer for the
+right customer Starbucks will be able to increase the marketing ROI. Also
+Starbucks will be able to target only customers that will respond to the offers,
+instead of sending the same offer to everyone and customers may become
+annoyed by Starbucks's advertising. 
+
+## Solution
+
+Based on historical data of customer responses a model will be created that will
+predict / suggest which type of offer a customer should get. The input for the
+model to make a prediction will be customer demographic data and offer attributes. Respectively the two datasets can be found in portfolio.json and profile.json files, see below.   
 
 ## The Datasets and Inputs
 
