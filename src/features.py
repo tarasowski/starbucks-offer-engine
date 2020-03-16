@@ -7,14 +7,13 @@ import joblib
 
 pipe = lambda fns: lambda x: reduce(lambda v, f: f(v), fns, x)
 
-def df_load(offers, profile):
-    return (pd.read_csv(offers), pd.read_csv(profile))
+def load_df(path, filename):
+    return pd.read_csv(path + filename) 
 
 def merge_profile(dfs):
     offers, profile = dfs
     offers = offers.merge(profile, left_on='customer_id', right_on='customer_id', how='inner')
     return offers
-
 
 def prepare_data(df):
     df['gender'] = df['gender'].map({0: 'Man', 1: 'Woman'})
@@ -66,14 +65,9 @@ def data_split(data):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=7, shuffle=True)
     return (X_train, X_test, y_train, y_test)
 
-def save_splits(X_train, X_test, y_train, y_test):
-    joblib.dump(X_train, '../models/X_train.pkl')
-    joblib.dump(X_test, '../models/X_test.pkl')
-    joblib.dump(y_train, '../models/y_train.pkl')
-    joblib.dump(y_test, '../models/y_test.pkl')
 
 
-def feat_engineering(offers, profile):
+def program(offers, profile):
     X_train, X_test, y_train, y_test = pipe([merge_profile,
             prepare_data,
             remove_info_offer,
@@ -85,11 +79,10 @@ def feat_engineering(offers, profile):
     return (X_train, X_test, y_train, y_test)
 
 def main(offers, profile):
-    offers, profile = df_load(offers, profile)
-    return feat_engineering(offers, profile)
+    return program(offers, profile)
 
 if __name__ == '__main__':
-    X_train, X_test, y_train, y_test = main('../input/offers.csv', 
-                                            '../input/profile.csv')
-    save_splits(X_train, X_test, y_train, y_test)
+    offers = load_df(load_path, 'offers.csv')
+    profile = load_df(load_path, 'profile.csv')
+    X_train, X_test, y_train, y_test = main(offers, profile)
 

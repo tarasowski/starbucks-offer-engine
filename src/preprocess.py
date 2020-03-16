@@ -6,18 +6,9 @@ from functools import reduce
 
 pipe = lambda fns: lambda x: reduce(lambda v, f: f(v), fns, x)
 
-
-def load_dfs():
-    portfolio = pd.read_json('../input/portfolio.json', 
+def load_json(path, filename):
+    return pd.read_json(path + filename, 
             orient='records', lines=True)
-    profile = pd.read_json('../input/profile.json', 
-            orient='records', lines=True)
-    transcript = pd.read_json('../input/transcript.json', 
-            orient='records', lines=True)
-    return (portfolio, profile, transcript)
-
-def save_df(df, path):
-    df.to_csv(path, index=false)
 
 # ------------- start portfolio data preprocessing ----------------
 def make_offer_name(portfolio):
@@ -244,15 +235,14 @@ def program(portfolio, profile, transcript):
             get_customer_ids(offer_df), 
             offer_df, transaction_df)
 
-    return (offers, profile, portfolio)
+    return (portfolio, profile, offers)
 
-def main():
-    return program(*load_dfs())
+def main(portfolio, profile, transcript):
+    return program(portfolio, profile, transcript)
     
-
 if __name__ == '__main__':
-    offers, profile, portfolio = main()
-    #save_df(offers, '../input/offers.csv')
-    #save_df(profile, '../input/profile.csv')
-    #save_df(portfolio, '../input/portfolio.csv')
+    portfolio = load_json(load_path, 'portfolio.json')
+    profile = load_json(load_path, 'profile.json')
+    transcript = load_json(load_path, 'transcript.json')
+    main(portfolio, profile, transcript)
 

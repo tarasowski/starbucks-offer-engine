@@ -9,9 +9,7 @@ models = [DecisionTreeClassifier(),
         RandomForestClassifier(random_state=7),
         XGBClassifier(objective='binary:logistic', random_state=7),
         AdaBoostClassifier(random_state=7),
-        GradientBoostingClassifier(random_state=7)
-
-        ]
+        GradientBoostingClassifier(random_state=7)]
 
 def prepare(data):
     X_train, X_test, y_train, y_test = data
@@ -42,21 +40,12 @@ def evaluate(data):
     print(f'Recall Score: {round(precision_score(y_test, y_pred) * 100, 2)}%')
     print(f'Precision Score: {round(recall_score(y_test, y_pred) * 100, 2)}%')
 
-def data_load():
-    X_train = joblib.load('../models/X_train.pkl') 
-    X_test =  joblib.load('../models/X_test.pkl')
-    y_train = joblib.load('../models/y_train.pkl') 
-    y_test = joblib.load('../models/y_test.pkl') 
-    return (X_train, X_test, y_train, y_test)
-
-def save_results(model, S_test, y_test):
-    joblib.dump(model, '../models/stacked_model.pkl')
-    joblib.dump(S_test, '../models/S_test.pkl')
-    joblib.dump(y_test, '../models/y_test.pkl')
-
-def main():
-    return train(prepare(data_load()))
+def main(params):
+    return train(prepare(params))
 
 if __name__ == '__main__':
-    model, S_test, y_test = main()
-    save_results(model, S_test, y_test) 
+    X_train = joblib.load(load_path + 'X_train.pkl')
+    X_test = joblib.load(load_path + 'X_test.pkl')
+    y_train = joblib.load(load_path + 'y_train.pkl')
+    y_test = joblib.load(load_path + 'y_test.pkl')
+    model, S_test, y_test = main((X_train, X_test, y_train, y_test))

@@ -1,0 +1,23 @@
+#!/bin/zsh
+#Author: Dimitri Tarasowski
+#Created: 16.03.2020
+
+if [[ "$1" == "preprocess" ]]
+  then echo "Running: $1"
+  ENV=PREPROCESS python3 ./src/main.py ./input/ ./input/ --save False
+fi
+
+if [[ "$1" == "features" ]]
+  then echo "Running: $1"
+  ENV=FEATURES python3 ./src/main.py ./input/ ./models/ --save False
+fi
+
+if [[ "$1" == "train" ]]
+  then echo "Running: $1"
+  ENV=TRAIN python3 ./src/main.py ./models/ ./models/ --save False
+fi
+
+if [[ "$1" == "predict" ]]
+  then echo "Running: $1"
+  ENV=PREDICT python3 ./src/main.py ./models/ ./models/
+fi
