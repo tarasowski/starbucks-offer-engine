@@ -10,7 +10,6 @@ def load_json(path, filename):
     return pd.read_json(path + filename, 
             orient='records', lines=True)
 
-# ------------- start portfolio data preprocessing ----------------
 def make_offer_name(portfolio):
     portfolio['offer_name'] = portfolio['offer_type'] +\
         '-' + portfolio['required_spend'].astype(str) +\
@@ -29,10 +28,6 @@ def rn_portfolio(portfolio):
     portfolio = portfolio.rename(columns={'id': 'offer_id', 
             'difficulty': 'required_spend'})
     return portfolio
-
-# -------------- end portfolio data preprocessing -----------------
-
-# ------------- start profile data preprocessing -----------------
 
 def membership(profile):
     profile['became_member_on'] = pd.to_datetime(profile['became_member_on'], 
@@ -75,10 +70,6 @@ def income_categories(profile):
 def rename_id(profile):
     profile = profile.rename(columns={'id': 'customer_id'})
     return profile
-
-# ------------- end profile data preprocessing -------------------
-
-# ------------- start transcript data preprocessing --------------
 
 def parse_value(transcript):
     values_df = pd.DataFrame(transcript['value'].tolist())
@@ -126,10 +117,6 @@ def create_offer_df(dfs):
             'event_offer viewed': 'event_offer_viewed'})
     offer_df['offer_ends'] = offer_df['time'] + offer_df['duration']
     return (offer_df, transaction_df)
-
-# ------------- end transcript data preprocessing ----------------
-
-# ------------- start metrics aggregation ------------------------
 
 def get_customer_ids(offer_df):
     return offer_df['customer_id'].unique()
@@ -203,8 +190,6 @@ def calculated_offers_df(customer_ids, offer_df, transaction_df):
     vfunc = np.vectorize(calc_offers(offer_df, transaction_df))
     calculated_offers_df = pd.concat(vfunc(customer_ids))
     return calculated_offers_df
-
-# ------------- end metrics aggregation --------------------------
 
 
 def program(portfolio, profile, transcript):
