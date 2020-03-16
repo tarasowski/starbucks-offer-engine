@@ -29,7 +29,7 @@ def preprocessing(load_path, save_path, save):
     portfolio = load_json(load_path, 'portfolio.json')
     profile = load_json(load_path, 'profile.json')
     transcript = load_json(load_path, 'transcript.json')
-    portfolio, profile, offers = run_preprocess(offers, profile, transcript)
+    portfolio, profile, offers = run_preprocess(portfolio, profile, transcript)
     if save:
         save_df(offers, save_path, 'offers.csv') 
         save_df(profile, save_path, 'profile.csv') 
