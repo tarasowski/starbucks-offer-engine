@@ -28,10 +28,10 @@ Starbucks's advertising.
 
 The whole project is decomposed into four parts: preprocessing, feature engineering, training, and prediction. Each part runs independently from each other. EDA is provided in the jupyter notebook file under `./docs/submission/starbucks-notebook.ipynb`. The description of EDA is in the final report, you can find the draft version here `./docs/submission/report-draft.pdf`.
 
-To start the preprocessing part, use `./run preprocess`
-To start the feature engineering part, use `./run features`
-To start the training part, use `./run train`
-To start the prediction part, use `./run predict`
+* To start the preprocessing part, use `./run preprocess`
+* To start the feature engineering part, use `./run features`
+* To start the training part, use `./run train`
+* To start the prediction part, use `./run predict`
 
 ## Support 
 
